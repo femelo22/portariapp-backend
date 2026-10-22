@@ -1,4 +1,4 @@
-package br.com.lfmelo.dto;
+package br.com.lfmelo.dto.deliveryevidence;
 
 import java.time.Instant;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package br.com.lfmelo.dto;
+package br.com.lfmelo.dto.condominium;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

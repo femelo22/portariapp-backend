@@ -2,9 +2,9 @@ package br.com.lfmelo.controller;
 
 import java.util.List;
 import java.util.UUID;
-import br.com.lfmelo.dto.CondominiumDto;
-import br.com.lfmelo.dto.CreateCondominiumRequest;
-import br.com.lfmelo.dto.UpdateCondominiumRequest;
+import br.com.lfmelo.dto.condominium.CondominiumDto;
+import br.com.lfmelo.dto.condominium.CreateCondominiumRequest;
+import br.com.lfmelo.dto.condominium.UpdateCondominiumRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

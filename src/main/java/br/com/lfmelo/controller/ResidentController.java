@@ -2,9 +2,9 @@ package br.com.lfmelo.controller;
 
 import java.util.List;
 import java.util.UUID;
-import br.com.lfmelo.dto.CreateResidentRequest;
-import br.com.lfmelo.dto.ResidentDto;
-import br.com.lfmelo.dto.UpdateResidentRequest;
+import br.com.lfmelo.dto.resident.CreateResidentRequest;
+import br.com.lfmelo.dto.resident.ResidentDto;
+import br.com.lfmelo.dto.resident.UpdateResidentRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

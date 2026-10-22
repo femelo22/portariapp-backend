@@ -1,4 +1,4 @@
-package br.com.lfmelo.dto;
+package br.com.lfmelo.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

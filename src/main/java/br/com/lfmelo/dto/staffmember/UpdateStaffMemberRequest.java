@@ -1,4 +1,4 @@
-package br.com.lfmelo.dto;
+package br.com.lfmelo.dto.staffmember;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

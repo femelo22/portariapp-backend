@@ -1,4 +1,4 @@
-package br.com.lfmelo.dto;
+package br.com.lfmelo.dto.unit;
 
 import java.util.UUID;
 import jakarta.validation.constraints.NotBlank;
