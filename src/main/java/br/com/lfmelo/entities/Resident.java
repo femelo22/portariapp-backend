@@ -48,7 +48,7 @@ public class Resident {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    protected Resident() {
+    public Resident() {
     }
 
     public UUID getId() {

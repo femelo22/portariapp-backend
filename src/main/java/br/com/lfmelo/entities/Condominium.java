@@ -24,7 +24,7 @@ public class Condominium {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    protected Condominium() {
+    public Condominium() {
     }
 
     public UUID getId() {
