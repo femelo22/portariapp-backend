@@ -95,8 +95,8 @@ Grafana: `http://localhost:3000`
 ## TODO
 
 - [ ] Criar uma descrição do projeto
-- [ ] Criar README do projeto
-- [ ] Autorização multi-tenant
+- [X] Criar README do projeto
+- [X] Autorização multi-tenant
 - [ ] Transições de status adicionais do delivery — RETURNED, LOST, CANCELLED (hoje só
       implementamos RECEIVED → PICKED_UP).
 - [ ] Filtros na listagem de deliveries — por status e/ou morador (recipientResidentId); por ora
