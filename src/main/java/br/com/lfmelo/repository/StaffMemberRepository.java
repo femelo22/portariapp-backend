@@ -12,6 +12,8 @@ public interface StaffMemberRepository extends JpaRepository<StaffMember, UUID> 
 
     Optional<StaffMember> findByIdAndCondominiumId(UUID id, UUID condominiumId);
 
+    Optional<StaffMember> findByUserId(UUID userId);
+
     boolean existsByUserId(UUID userId);
 
     boolean existsByUserIdAndIdNot(UUID userId, UUID id);
