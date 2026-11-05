@@ -6,6 +6,7 @@ import br.com.lfmelo.dto.condominium.CondominiumDto;
 import br.com.lfmelo.dto.condominium.CreateCondominiumRequest;
 import br.com.lfmelo.dto.condominium.UpdateCondominiumRequest;
 import br.com.lfmelo.entities.Condominium;
+import br.com.lfmelo.exception.ConflictException;
 import br.com.lfmelo.exception.ResourceNotFoundException;
 import br.com.lfmelo.mapper.CondominiumMapper;
 import br.com.lfmelo.repository.CondominiumRepository;
@@ -36,6 +37,9 @@ public class CondominiumServiceImpl implements CondominiumService {
     @Override
     @Transactional
     public CondominiumDto create(CreateCondominiumRequest request) {
+        if (condominiumRepository.existsByNameIgnoreCase(request.name())) {
+            throw new ConflictException("Condominium name already in use: " + request.name());
+        }
         Condominium condominium = new Condominium();
         condominium.setName(request.name());
         return CondominiumMapper.toDto(condominiumRepository.save(condominium));
@@ -45,6 +49,9 @@ public class CondominiumServiceImpl implements CondominiumService {
     @Transactional
     public CondominiumDto update(UUID id, UpdateCondominiumRequest request) {
         Condominium condominium = getOrThrow(id);
+        if (condominiumRepository.existsByNameIgnoreCaseAndIdNot(request.name(), id)) {
+            throw new ConflictException("Condominium name already in use: " + request.name());
+        }
         condominium.setName(request.name());
         return CondominiumMapper.toDto(condominiumRepository.save(condominium));
     }

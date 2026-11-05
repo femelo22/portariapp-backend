@@ -53,6 +53,7 @@ public class UnitServiceImpl implements UnitService {
         Unit unit = new Unit();
         unit.setCondominium(condominium);
         unit.setIdentifier(request.identifier());
+        unit.setCreatedAt(java.time.Instant.now());
         return UnitMapper.toDto(unitRepository.save(unit));
     }
 
