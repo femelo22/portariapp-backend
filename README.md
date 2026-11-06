@@ -12,6 +12,7 @@
 [![Loki](https://img.shields.io/badge/Loki-logs-F5A623?logo=grafana&logoColor=white)](https://grafana.com/oss/loki/)
 [![Swagger](https://img.shields.io/badge/OpenAPI-Swagger%20UI-85EA2D?logo=swagger&logoColor=black)](https://swagger.io/)
 
+![Building with AI](https://img.shields.io/badge/Building%20with%20AI-GitHub%20Copilot-000000?logo=githubcopilot&logoColor=white)
 
 O PortariApp é uma API criada para tornar a rotina das portarias mais simples, organizada e segura. A plataforma centraliza o cadastro de moradores, unidades e funcionários, além de acompanhar as encomendas desde o recebimento até a retirada.
 
