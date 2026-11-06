@@ -65,35 +65,36 @@ Base: `/api/v1/condominiums/{condominiumId}/deliveries`
 | GET | `/{deliveryId}/evidences` | Listar metadados das evidências. |
 | GET | `/{deliveryId}/evidences/{evidenceId}/content` | Baixar uma evidência. |
 
-O recebimento cria um evento `RECEIVED`. A partir dele, há somente uma transição para
-`PICKED_UP`, `RETURNED`, `LOST` ou `CANCELLED`; estados finais não podem ser alterados.
-Os três últimos endpoints aceitam um corpo opcional `{"notes": "..."}`. Tentativas de
-transição repetida ou inválida retornam 409. A tabela `deliveries` guarda o estado atual e
-`delivery_events` registra o histórico, com sequência, funcionário, data e observação.
-Os dois registros são gravados na mesma transação; transições concorrentes são serializadas.
-Não há rotas para editar ou excluir encomendas ou eventos.
+### Regras de negócio
 
-As evidências são opcionais e podem ser adicionadas em qualquer estado. O armazenamento
-local requer um diretório persistente; a interface de armazenamento permite uma implementação
-futura com S3, mas ela não está incluída. Como banco de dados e disco não compartilham uma
-transação atômica, uma interrupção abrupta pode deixar arquivos órfãos: monitore e reconcilie
-o diretório de armazenamento operacionalmente. Em falhas de commit cujo resultado seja
-desconhecido, o arquivo é preservado para evitar apagar uma evidência que possa ter sido
-confirmada no banco; a ocorrência é registrada para reconciliação.
+- **RN01 — Recebimento:** o registro de uma encomenda gera um evento `RECEIVED`.
+- **RN02 — Situação:** uma encomenda `RECEIVED` pode transitar uma única vez para
+  `PICKED_UP`, `RETURNED`, `LOST` ou `CANCELLED`. Essas situações são finais; transições
+  repetidas ou inválidas retornam 409.
+- **RN03 — Observações:** devolução, extravio e cancelamento aceitam a observação opcional
+  `notes`.
+- **RN04 — Histórico:** cada evento registra sequência, funcionário, data e observação.
+  `deliveries` mantém o estado atual e `delivery_events` mantém o histórico; ambos são
+  atualizados na mesma transação, com transições concorrentes serializadas.
+- **RN05 — Preservação:** não há rotas para editar ou excluir encomendas ou eventos.
+- **RN06 — Evidências:** são opcionais e podem ser adicionadas em qualquer situação.
+  Aceitam imagens JPEG, PNG, WebP e HEIC, com limite padrão configurável de 10 MiB por arquivo.
 
-São aceitas imagens JPEG, PNG, WebP e HEIC de até 10 MiB por arquivo. JPEG e PNG são
-decodificadas para validação; WebP e HEIC passam por validação estrutural, não por
-decodificação completa. Configure `EVIDENCE_STORAGE_DIRECTORY` (padrão `./data/evidences`),
+### Armazenamento de evidências
+
+O armazenamento local exige um diretório persistente. A interface permite uma implementação
+futura com S3, ainda não incluída. JPEG e PNG são decodificadas para validação; WebP e HEIC
+passam apenas por validação estrutural.
+
+Configure `EVIDENCE_STORAGE_DIRECTORY` (padrão `./data/evidences`),
 `EVIDENCE_MAX_FILE_SIZE_BYTES` (padrão `10485760`) e `EVIDENCE_MAX_REQUEST_SIZE` (padrão
 `11MB`). O limite da requisição inclui os cabeçalhos multipart e deve ser ajustado junto ao
-limite do arquivo. Em ambientes com contêineres, monte um volume persistente no diretório
-configurado.
+limite do arquivo. Em contêineres, monte um volume persistente no diretório configurado.
 
-### Migração do histórico
+Como banco e disco não compartilham uma transação atômica, interrupções podem deixar arquivos
+órfãos, que devem ser reconciliados operacionalmente. Se o resultado do commit for desconhecido,
+o arquivo é preservado e a ocorrência registrada para reconciliação.
 
-A migração Flyway V3 exige que as tabelas `deliveries` e `delivery_evidences` estejam vazias.
-Se houver dados, ela falha sem excluí-los; faça backup e limpe os dados manualmente antes da
-migração, caso apropriado. Não é feita reconstrução automática do histórico anterior.
 
 ## Autenticação & Autorização
 
@@ -107,31 +108,6 @@ migração, caso apropriado. Não é feita reconstrução automática do histór
   no `CondominiumController`) retorna 403. Listar/criar/excluir condomínios é bloqueado para
   staff, por ainda não existir autorização diferenciada para administradores.
 - Senhas com **BCrypt** (`spring-security-crypto`).
-
-## ROLE dos funcionários
-
-Cada funcionário possui uma `role`: `DOORMAN` (porteiro) ou `ADMIN`. O campo é obrigatório
-no corpo das requisições de criação e atualização de funcionários e é retornado em suas
-consultas e na resposta de login. Os clientes existentes precisam incluir o campo no
-`POST` e no `PUT` de `/api/v1/condominiums/{condominiumId}/staff-members`.
-
-Exemplo de criação:
-
-```json
-{
-  "condominiumId": "00000000-0000-0000-0000-000000000001",
-  "userId": null,
-  "fullName": "Funcionário",
-  "role": "DOORMAN"
-}
-```
-
-Exemplo de atualização: `{"fullName":"Funcionário","active":true,"role":"ADMIN"}`.
-
-A migração V4 classifica funcionários existentes como `DOORMAN`, sem excluir registros.
-Nesta etapa, a ROLE é apenas cadastral: não altera as permissões e `ADMIN` não recebe
-privilégios adicionais. Qualquer funcionário que já possa alterar cadastros continua
-podendo atribuir qualquer uma das duas ROLEs.
 
 ## Tratamento de exceções
 
