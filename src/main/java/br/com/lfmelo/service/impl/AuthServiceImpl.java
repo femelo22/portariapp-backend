@@ -62,6 +62,7 @@ public class AuthServiceImpl implements AuthService {
                 staffMember.getId(),
                 staffMember.getCondominium().getId(),
                 staffMember.getFullName(),
-                user.getEmail());
+                user.getEmail(),
+                staffMember.getRole());
     }
 }

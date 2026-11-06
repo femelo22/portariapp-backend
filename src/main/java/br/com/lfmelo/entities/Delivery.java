@@ -68,7 +68,7 @@ public class Delivery {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    protected Delivery() {
+    public Delivery() {
     }
 
     public UUID getId() {

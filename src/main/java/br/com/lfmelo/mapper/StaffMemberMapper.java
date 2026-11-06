@@ -16,6 +16,7 @@ public final class StaffMemberMapper {
                 staffMember.getUser() != null ? staffMember.getUser().getId() : null,
                 staffMember.getFullName(),
                 staffMember.isActive(),
-                staffMember.getCreatedAt());
+                staffMember.getCreatedAt(),
+                staffMember.getRole());
     }
 }

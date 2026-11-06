@@ -13,9 +13,11 @@ public final class SecurityUtils {
     /** Returns the currently authenticated staff member, if the request carries a valid JWT. */
     public static Optional<AuthenticatedStaff> currentStaff() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         if (authentication != null && authentication.getPrincipal() instanceof AuthenticatedStaff staff) {
             return Optional.of(staff);
         }
+
         return Optional.empty();
     }
 }

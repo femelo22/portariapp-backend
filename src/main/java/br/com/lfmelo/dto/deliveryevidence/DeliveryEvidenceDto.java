@@ -9,7 +9,6 @@ public record DeliveryEvidenceDto(
         UUID condominiumId,
         UUID deliveryId,
         UUID uploadedByStaffId,
-        String storageFileKey,
         String originalFilename,
         EvidenceContentType contentType,
         long sizeBytes,

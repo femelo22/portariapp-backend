@@ -20,7 +20,7 @@ import org.springframework.web.servlet.HandlerMapping;
  * <ul>
  *   <li>Nested resources ({@code /api/v1/condominiums/{condominiumId}/...}) must match the
  *       staff's condominium, otherwise {@link ForbiddenException} (403) is thrown.
- *   <li>{@link CondominiumController} itself has no {@code admin} role yet, so staff can only
+ *   <li>{@link CondominiumController} itself has no role-based admin privileges yet, so staff can only
  *       read/update their own condominium ({@code GET}/{@code PUT /{id}}); listing, creating and
  *       deleting condominiums is blocked entirely.
  * </ul>

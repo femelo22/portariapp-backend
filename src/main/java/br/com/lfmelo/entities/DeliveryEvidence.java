@@ -52,7 +52,7 @@ public class DeliveryEvidence {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    protected DeliveryEvidence() {
+    public DeliveryEvidence() {
     }
 
     public UUID getId() {

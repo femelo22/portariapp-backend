@@ -61,6 +61,7 @@ public class StaffMemberServiceImpl implements StaffMemberService {
         staffMember.setCondominium(condominium);
         staffMember.setUser(resolveUser(request.userId(), null));
         staffMember.setFullName(request.fullName());
+        staffMember.setRole(request.role());
         return StaffMemberMapper.toDto(staffMemberRepository.save(staffMember));
     }
 
@@ -70,6 +71,7 @@ public class StaffMemberServiceImpl implements StaffMemberService {
         StaffMember staffMember = getOrThrow(condominiumId, id);
         staffMember.setFullName(request.fullName());
         staffMember.setActive(request.active());
+        staffMember.setRole(request.role());
         return StaffMemberMapper.toDto(staffMemberRepository.save(staffMember));
     }
 
