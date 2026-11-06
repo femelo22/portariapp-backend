@@ -12,8 +12,10 @@
 [![Loki](https://img.shields.io/badge/Loki-logs-F5A623?logo=grafana&logoColor=white)](https://grafana.com/oss/loki/)
 [![Swagger](https://img.shields.io/badge/OpenAPI-Swagger%20UI-85EA2D?logo=swagger&logoColor=black)](https://swagger.io/)
 
-API para gestão de portaria de condomínios: controle de moradores, unidades, porteiros/síndicos
-e recebimento/entrega de encomendas, com isolamento multi-tenant por condomínio.
+
+O PortariApp é uma API criada para tornar a rotina das portarias mais simples, organizada e segura. A plataforma centraliza o cadastro de moradores, unidades e funcionários, além de acompanhar as encomendas desde o recebimento até a retirada.
+
+Cada movimentação fica registrada em um histórico com data e funcionário responsável, permitindo consultar o status da encomenda e adicionar evidências. Com os dados de cada condomínio separados, o PortariApp oferece mais controle para a equipe, transparência na gestão e tranquilidade para os moradores.
 
 ## Stack
 
